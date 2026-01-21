@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>How Long Until a Date? | Exact Days, Hours & Minutes Left</title>
+  <meta name="description" content="Enter any date and instantly see how long is left in days, hours, minutes, and seconds. Fast, simple, and accurate." />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">GetDaysLeft</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>How long until a specific date?</h1>
+      <p>Enter a date to see exactly how many days, hours, minutes, and seconds are left.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="panel">
+      <div class="controls">
+        <label class="field">
+          <span class="field-label">Date</span>
+          <input id="dateInput" type="date" />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Time</span>
+          <input id="timeInput" type="time" value="00:00" />
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="startBtn" class="btn btn-primary">Start Countdown</button>
+        <button id="resetBtn" class="btn btn-ghost">Reset</button>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section id="results" class="results hidden">
+      <div class="bigline">
+        <span id="bigDays">0</span> <span class="muted">days left</span>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© getdaysleft.com</span>
+    </footer>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
