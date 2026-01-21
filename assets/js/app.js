@@ -18,6 +18,9 @@ const hoursVal = document.getElementById("hoursVal");
 const minsVal = document.getElementById("minsVal");
 const secsVal = document.getElementById("secsVal");
 const targetText = document.getElementById("targetText");
+const copyLinkBtn = document.getElementById("copyLinkBtn");
+const copyResultBtn = document.getElementById("copyResultBtn");
+
 
 // Helpers
 function formatNumber(n) {
@@ -149,9 +152,56 @@ function resetAll() {
   }
 }
 
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    alert("Copied!");
+  } catch {
+    // Fallback for some browsers
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    alert("Copied!");
+  }
+}
+
+function buildShareUrl() {
+  const d = dateInput.value;
+  const t = timeInput.value || "00:00";
+  const url = new URL(window.location.origin + window.location.pathname);
+  url.searchParams.set("date", d);
+  url.searchParams.set("time", t);
+  return url.toString();
+}
+
+function buildResultText() {
+  const label = bigLabel ? bigLabel.textContent : "days left";
+  const days = bigDaysEl ? bigDaysEl.textContent : "0";
+  const target = targetText ? targetText.textContent : "";
+  return `${days} ${label}\nTarget Date: ${target}\n${buildShareUrl()}`;
+}
+
+
 // Events
 startBtn.addEventListener("click", startCountdown);
 resetBtn.addEventListener("click", resetAll);
+
+if (copyLinkBtn) {
+  copyLinkBtn.addEventListener("click", () => {
+    if (!dateInput.value) return alert("Select a date first.");
+    copyToClipboard(buildShareUrl());
+  });
+}
+
+if (copyResultBtn) {
+  copyResultBtn.addEventListener("click", () => {
+    if (!dateInput.value) return alert("Select a date first.");
+    copyToClipboard(buildResultText());
+  });
+}
 
 // Optional: Auto-start if URL has ?date=YYYY-MM-DD&time=HH:MM
 (function initFromQuery() {
@@ -164,3 +214,4 @@ resetBtn.addEventListener("click", resetAll);
 
   if (d) startCountdown();
 })();
+
