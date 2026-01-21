@@ -110,3 +110,53 @@ input {
 @media (max-width: 700px) {
   .controls { grid-template-columns: 1fr; }
 }
+
+.bigline {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 800;
+  margin: 18px 0 16px;
+}
+
+.muted { opacity: .75; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.card {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,.04);
+}
+
+.card-title { opacity: .75; margin-bottom: 6px; }
+.card-value { font-size: 36px; font-weight: 800; }
+
+.targetline {
+  text-align: center;
+  margin-top: 12px;
+  opacity: .8;
+  font-size: 14px;
+}
+
+/* NEW: past-date status line */
+.statusline {
+  text-align: center;
+  margin: 6px 0 14px;
+  font-size: 14px;
+  opacity: .8;
+}
+
+.statusline.past {
+  opacity: .85;
+}
+
+@media (max-width: 700px) {
+  .grid { grid-template-columns: 1fr; }
+}

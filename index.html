@@ -48,7 +48,32 @@
 
     <section id="results" class="results hidden">
       <div class="bigline">
-        <span id="bigDays">0</span> <span class="muted">days left</span>
+        <span id="bigDays">0</span> <span id="bigLabel" class="muted">days left</span>
+      </div>
+
+      <div id="statusLine" class="statusline hidden"></div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-title">Days</div>
+          <div id="daysVal" class="card-value">0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Hours</div>
+          <div id="hoursVal" class="card-value">0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Minutes</div>
+          <div id="minsVal" class="card-value">0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Seconds</div>
+          <div id="secsVal" class="card-value">0</div>
+        </div>
+      </div>
+
+      <div class="targetline">
+        Target Date: <span id="targetText"></span>
       </div>
     </section>
 
