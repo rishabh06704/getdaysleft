@@ -19,7 +19,7 @@ const minsVal = document.getElementById("minsVal");
 const secsVal = document.getElementById("secsVal");
 const targetText = document.getElementById("targetText");
 const copyLinkBtn = document.getElementById("copyLinkBtn");
-const copyResultBtn = document.getElementById("copyResultBtn");
+const copyToast = document.getElementById("copyToast");
 
 
 // Helpers
@@ -47,6 +47,13 @@ function setText(el, text) {
 function show(el) {
   if (!el) return;
   el.classList.remove("hidden");
+}
+
+function showToast(message) {
+  if (!copyToast) return;
+  copyToast.textContent = message;
+  copyToast.classList.remove("hidden");
+  setTimeout(() => copyToast.classList.add("hidden"), 1500);
 }
 
 function hide(el) {
@@ -155,18 +162,21 @@ function resetAll() {
 async function copyToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);
-    alert("Copied!");
+    showToast("Copied to clipboard");
   } catch {
-    // Fallback for some browsers
+    // Fallback
     const ta = document.createElement("textarea");
     ta.value = text;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand("copy");
     ta.remove();
-    alert("Copied!");
+    showToast("Copied to clipboard");
   }
 }
+
+
+
 
 function buildShareUrl() {
   const d = dateInput.value;
@@ -177,12 +187,6 @@ function buildShareUrl() {
   return url.toString();
 }
 
-function buildResultText() {
-  const label = bigLabel ? bigLabel.textContent : "days left";
-  const days = bigDaysEl ? bigDaysEl.textContent : "0";
-  const target = targetText ? targetText.textContent : "";
-  return `${days} ${label}\nTarget Date: ${target}\n${buildShareUrl()}`;
-}
 
 
 // Events
@@ -191,17 +195,13 @@ resetBtn.addEventListener("click", resetAll);
 
 if (copyLinkBtn) {
   copyLinkBtn.addEventListener("click", () => {
-    if (!dateInput.value) return alert("Select a date first.");
+    if (!dateInput.value) return showToast("Select a date first");
     copyToClipboard(buildShareUrl());
   });
 }
 
-if (copyResultBtn) {
-  copyResultBtn.addEventListener("click", () => {
-    if (!dateInput.value) return alert("Select a date first.");
-    copyToClipboard(buildResultText());
-  });
-}
+
+
 
 // Optional: Auto-start if URL has ?date=YYYY-MM-DD&time=HH:MM
 (function initFromQuery() {
