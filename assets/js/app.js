@@ -136,6 +136,7 @@ function startCountdown() {
 
   // Update immediately, then tick every second
   updateCountdownOnce(target);
+  const shareUrl = buildShareUrl();
   timerId = setInterval(() => updateCountdownOnce(target), 1000);
 }
 
@@ -203,15 +204,5 @@ if (copyLinkBtn) {
 
 
 
-// Optional: Auto-start if URL has ?date=YYYY-MM-DD&time=HH:MM
-(function initFromQuery() {
-  const params = new URLSearchParams(window.location.search);
-  const d = params.get("date");
-  const t = params.get("time");
 
-  if (d) dateInput.value = d;
-  if (t) timeInput.value = t;
-
-  if (d) startCountdown();
-})();
 
