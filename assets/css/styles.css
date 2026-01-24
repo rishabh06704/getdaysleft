@@ -11,9 +11,13 @@ body {
     linear-gradient(180deg, #070a12, #0b1020);
 
   /* full-height layout */
-  min-height: 100vh;
+  min-height: 100vh;   /* fallback */
+  min-height: 100svh;  /* iOS-correct */
   display: flex;
   flex-direction: column;
+
+  /* iOS safe-area */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .container {
@@ -109,7 +113,6 @@ body {
   pointer-events: none;
 }
 
-
 .controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -140,6 +143,16 @@ input:focus {
   background: rgba(255,255,255,.08);
 }
 
+/* iOS date/time alignment fixes */
+input[type="date"],
+input[type="time"] {
+  text-align: left;
+}
+
+input[type="date"]::-webkit-date-and-time-value,
+input[type="time"]::-webkit-date-and-time-value {
+  text-align: left;
+}
 
 /* Chrome, Edge, Safari */
 input::-webkit-calendar-picker-indicator {
@@ -198,14 +211,18 @@ main.container {
   flex-direction: column;
 }
 
-/* when results hidden, center content vertically */
-main.container:has(.results.hidden) {
+/*
+  IMPORTANT:
+  Removed :has() to avoid iOS Safari mismatch.
+  Use JS to toggle .center-empty on <main class="container"> when results are hidden.
+*/
+main.container.center-empty {
   justify-content: center;
 }
 
 /* avoid over-centering on short viewports */
 @media (max-height: 700px) {
-  main.container:has(.results.hidden) {
+  main.container.center-empty {
     justify-content: flex-start;
   }
 }
@@ -288,7 +305,6 @@ main.container:has(.results.hidden) {
   .hero h1 { font-size: 36px; }
   .bigline { font-size: 44px; }
 }
-
 
 .ad-slot{
   margin: 14px auto 0;
